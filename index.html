@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studio Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div id="app">
+
+    <!-- ═══════════════════════════════
+         SIDEBAR — Client navigation
+    ═══════════════════════════════ -->
+    <aside id="sidebar">
+
+      <div id="sidebar-brand">
+        <span class="brand-mark">◈</span>
+        <span class="brand-name">STUDIO</span>
+      </div>
+
+      <div class="sidebar-section-label">CLIENTS</div>
+
+      <!-- Client buttons injected here by app.js -->
+      <nav id="client-nav" aria-label="Client selection"></nav>
+
+      <div id="sidebar-footer">
+        <span>Strategy &amp; Pitch System</span>
+      </div>
+
+    </aside>
+
+    <!-- ═══════════════════════════════
+         MAIN — Tabs + Content
+    ═══════════════════════════════ -->
+    <div id="main">
+
+      <!-- Output type tabs injected here by app.js -->
+      <header id="tab-bar" role="tablist" aria-label="Output type selection">
+        <!-- Populated dynamically -->
+      </header>
+
+      <!-- Primary content display -->
+      <div id="content-wrapper">
+        <div id="content" role="main" aria-live="polite">
+          <!-- Content fragments loaded via fetch() -->
+          <div class="loading-state">
+            <span class="spinner"></span>
+            <p>Loading dashboard&hellip;</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main -->
+
+  </div><!-- /app -->
+
+  <script src="app.js"></script>
+</body>
+</html>
