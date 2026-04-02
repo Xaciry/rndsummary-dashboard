@@ -1,0 +1,290 @@
+/**
+ * ═══════════════════════════════════════════════════════════
+ * STUDIO DASHBOARD — app.js
+ * Config-driven, zero-framework client pitch dashboard.
+ * All clients and outputs are defined in config.json.
+ * ═══════════════════════════════════════════════════════════
+ */
+
+
+// ─── CONSTANTS ────────────────────────────────────────────────
+const CONFIG_PATH   = 'config.json';
+const CONTENT_BASE  = 'content/';          // trailing slash required
+
+
+// ─── STATE ────────────────────────────────────────────────────
+// Single source of truth for what's currently selected.
+const state = {
+  clients:       [],    // full config.clients array
+  activeClient:  null,  // current client object
+  activeOutput:  null,  // current output key (display name string)
+};
+
+
+// ─── INIT ─────────────────────────────────────────────────────
+/**
+ * Entry point. Fetches config.json, builds the UI, loads default content.
+ */
+async function init() {
+  try {
+    const res = await fetch(CONFIG_PATH);
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status} — could not load ${CONFIG_PATH}`);
+    }
+
+    const config = await res.json();
+
+    if (!config.clients || config.clients.length === 0) {
+      throw new Error('config.json has no clients defined.');
+    }
+
+    state.clients = config.clients;
+
+    // Build the static sidebar (clients don't change after init)
+    buildSidebar();
+
+    // Activate the first client by default
+    selectClient(state.clients[0].id);
+
+  } catch (err) {
+    renderError(`Dashboard failed to initialise: ${err.message}`);
+    console.error('[Dashboard]', err);
+  }
+}
+
+
+// ─── SIDEBAR ──────────────────────────────────────────────────
+/**
+ * Renders one <button> per client into #client-nav.
+ * Called once on init — sidebar does not re-render.
+ */
+function buildSidebar() {
+  const nav = document.getElementById('client-nav');
+  nav.innerHTML = '';
+
+  state.clients.forEach(client => {
+    const btn = document.createElement('button');
+    btn.className        = 'client-btn';
+    btn.dataset.clientId = client.id;
+    btn.textContent      = client.name;
+    btn.setAttribute('aria-label', `Select client: ${client.name}`);
+
+    btn.addEventListener('click', () => selectClient(client.id));
+
+    nav.appendChild(btn);
+  });
+}
+
+
+// ─── CLIENT SELECTION ─────────────────────────────────────────
+/**
+ * Switches the active client. Rebuilds the tab bar, then selects
+ * the "Summary" output if available, otherwise the first output.
+ *
+ * @param {string} clientId  — matches client.id in config.json
+ */
+function selectClient(clientId) {
+  const client = state.clients.find(c => c.id === clientId);
+  if (!client) return;
+
+  state.activeClient = client;
+
+  // ── Update sidebar active state ──
+  document.querySelectorAll('.client-btn').forEach(btn => {
+    const isActive = btn.dataset.clientId === clientId;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', isActive);
+  });
+
+  // ── Build tab bar for this client's outputs ──
+  buildTabs(client);
+
+  // ── Default output: always the first key (brief-first ordering from config) ──
+  const outputKeys  = Object.keys(client.outputs);
+  const defaultKey  = outputKeys[0];
+
+  selectOutput(defaultKey);
+}
+
+
+// ─── TAB BAR ──────────────────────────────────────────────────
+/**
+ * Clears and rebuilds the tab bar based on the selected client's outputs.
+ * Each key in client.outputs becomes one tab button.
+ *
+ * @param {object} client  — client object from config
+ */
+function buildTabs(client) {
+  const tabBar = document.getElementById('tab-bar');
+  tabBar.innerHTML = '';
+
+  Object.keys(client.outputs).forEach(outputName => {
+    const btn = document.createElement('button');
+    btn.className        = 'tab-btn';
+    btn.dataset.output   = outputName;
+    btn.textContent      = outputName;
+    btn.setAttribute('role', 'tab');
+    btn.setAttribute('aria-selected', 'false');
+
+    btn.addEventListener('click', () => selectOutput(outputName));
+
+    tabBar.appendChild(btn);
+  });
+}
+
+
+// ─── OUTPUT SELECTION ─────────────────────────────────────────
+/**
+ * Switches the active output tab and triggers a content fetch.
+ *
+ * @param {string} outputName  — must match a key in client.outputs
+ */
+function selectOutput(outputName) {
+  if (!state.activeClient) return;
+
+  const filename = state.activeClient.outputs[outputName];
+  if (!filename) return;
+
+  state.activeOutput = outputName;
+
+  // ── Update tab active state ──
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    const isActive = btn.dataset.output === outputName;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', isActive);
+  });
+
+  // ── Build path and load content ──
+  const path = `${CONTENT_BASE}${state.activeClient.id}/${filename}`;
+  loadContent(path);
+}
+
+
+// ─── CONTENT LOADING ──────────────────────────────────────────
+/**
+ * Fetches an HTML file and renders it into #content.
+ *
+ * - Full HTML documents (<!DOCTYPE> or <html>) → rendered in a sandboxed
+ *   iframe that fills the content area. This handles briefs from the
+ *   research tools which output complete standalone HTML files.
+ *
+ * - HTML fragments (no doc tags) → injected directly as before.
+ *
+ * @param {string} path  — relative path to the .html file
+ */
+async function loadContent(path) {
+  const container = document.getElementById('content');
+  const wrapper   = document.getElementById('content-wrapper');
+
+  // Visual loading state
+  container.classList.remove('fade-in');
+  container.classList.add('loading');
+  container.innerHTML = '<div class="loading-state"><span class="spinner"></span></div>';
+
+  try {
+    const res = await fetch(path);
+
+    if (!res.ok) {
+      throw new Error(`${res.status} — file not found at ${path}`);
+    }
+
+    const html = await res.text();
+
+    // Detect full HTML documents vs fragments
+    const isFullDocument = /^\s*<!doctype|^\s*<html/i.test(html);
+
+    container.classList.remove('loading');
+
+    if (isFullDocument) {
+      // ── Full document: render in iframe ──────────────────────
+      // Hide the brief's own sidebar so the dashboard frame is the
+      // only navigation. The brief's internal section tabs remain
+      // fully functional inside the iframe.
+      container.style.padding = '0';
+      const iframe = document.createElement('iframe');
+      iframe.className   = 'doc-iframe';
+      iframe.title       = 'Document viewer';
+      iframe.sandbox     = 'allow-same-origin allow-scripts';
+      iframe.src         = path;
+
+      // After the brief loads, suppress competing chrome and wire up scroll navigation
+      iframe.addEventListener('load', () => {
+        try {
+          const doc = iframe.contentDocument;
+          const win = doc.defaultView;
+
+          // 1. CSS: hide the brief's own topbar/print button; make all sections
+          //    always visible so the document scrolls as one long page.
+          const style = doc.createElement('style');
+          style.textContent = `
+            .sidebar          { display: none !important; }
+            .brief-topbar     { display: none !important; }
+            .print-btn        { display: none !important; }
+            .section          { display: block !important; }
+            .section + .section {
+              border-top: 1px solid #D0D5DD;
+              margin-top: 40px;
+              padding-top: 40px;
+            }
+            .main             { margin-left: 0 !important; max-width: 100% !important; }
+            body              { overflow-x: hidden; }
+          `;
+          doc.head.appendChild(style);
+
+          // 2. JS: replace showTab() so TOC-card clicks scroll to the target
+          //    section instead of trying to show/hide (which the CSS now blocks).
+          win.showTab = function (sectionId) {
+            const target = doc.getElementById(sectionId);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          };
+
+        } catch (e) {
+          // Cross-origin frames can't be patched — safe to ignore
+        }
+      });
+
+      container.innerHTML = '';
+      container.appendChild(iframe);
+    } else {
+      // ── Fragment: inject directly ─────────────────────────────
+      // innerHTML does not execute <script> tags — we re-create them
+      // as live DOM nodes so inline scripts (e.g. showTab) work correctly.
+      container.style.padding = '';
+      container.innerHTML = html;
+
+      container.querySelectorAll('script').forEach(oldScript => {
+        const newScript = document.createElement('script');
+        if (oldScript.src) {
+          newScript.src = oldScript.src;
+        } else {
+          newScript.textContent = oldScript.textContent;
+        }
+        oldScript.replaceWith(newScript);
+      });
+
+      container.classList.add('fade-in');
+
+      container.addEventListener('animationend', () => {
+        container.classList.remove('fade-in');
+      }, { once: true });
+    }
+
+    // Scroll to top on every navigation
+    if (wrapper) wrapper.scrollTop = 0;
+
+  } catch (err) {
+    container.classList.remove('loading');
+    container.style.padding = '';
+    container.innerHTML = `
+      <div class="error-state">
+        <p>Content unavailable</p>
+        <small>${sanitize(err.message)}</small>
+      </div>
+    `;
+    console.warn('[Dashboard] Content load failed:', err.message);
+  }
+}
+
+
+// ─── UTILITIES �
