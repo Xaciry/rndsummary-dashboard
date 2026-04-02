@@ -1,0 +1,23 @@
+{
+  "clients": [
+    {
+      "id": "Adam-Setra",
+      "name": "Adam Setra",
+      "outputs": {
+        "Setra Law Creative Director Brief": "SetraLaw_CreativeDirector_Brief.html",
+        "Setra Law General Brief": "SetraLaw_General_Brief.html",
+        "Full System Output": "full-system-output.html"
+      }
+    },
+    {
+      "id": "Volada",
+      "name": "Volada",
+      "outputs": {
+        "Volada CEO Brief": "Volada_CEO_Brief.html",
+        "Volada Creative Director Brief": "Volada_CreativeDirector_Brief.html",
+        "Campaign Concepts": "campaign-concepts.html",
+        "Research Overview": "research-overview.html"
+      }
+    }
+  ]
+}
