@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Volada Vodka — Campaign Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:      #1B2A4A;
+    --navy-mid:  #243659;
+    --accent:    #2E75B6;
+    --steel:     #4A6FA5;
+    --gold:      #c9a96e;
+    --gold-bg:   #FFF8E1;
+    --gold-fg:   #7B5B00;
+    --green-bg:  #E8F5E9;
+    --green-fg:  #1B5E20;
+    --red-bg:    #FDECEA;
+    --red-fg:    #B71C1C;
+    --ice:       #EBF3FB;
+    --pale:      #F4F7FA;
+    --rule:      #D0D5DD;
+    --body:      #333333;
+    --mid-gray:  #6B7280;
+    --white:     #FFFFFF;
+  }
+
+  html, body { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 13px; color: var(--body); background: var(--pale); -webkit-font-smoothing: antialiased; }
+
+  .brief-topbar { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--rule); display: flex; align-items: stretch; padding: 0 28px; height: 52px; gap: 0; }
+  .brief-brand { display: flex; flex-direction: column; justify-content: center; padding-right: 22px; border-right: 1px solid var(--rule); margin-right: 4px; flex-shrink: 0; gap: 2px; }
+  .brief-brand .eyebrow { font-size: 9px; font-weight: 600; letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase; line-height: 1; }
+  .brief-brand .firm-name { font-size: 13px; font-weight: 600; color: var(--navy); line-height: 1.2; white-space: nowrap; }
+  .brief-nav { display: flex; align-items: stretch; flex: 1; overflow-x: auto; scrollbar-width: none; }
+  .brief-nav::-webkit-scrollbar { display: none; }
+  .tab-btn { display: inline-flex; align-items: center; padding: 0 16px; background: none; border: none; border-bottom: 2px solid transparent; font-family: inherit; font-size: 12px; font-weight: 400; color: #888; cursor: pointer; white-space: nowrap; transition: color 0.14s ease, border-color 0.14s ease; position: relative; top: 1px; gap: 6px; }
+  .tab-btn:hover { color: var(--navy); }
+  .tab-btn.active { color: var(--navy); font-weight: 500; border-bottom-color: var(--gold); }
+  .tab-num { font-size: 9.5px; font-weight: 700; color: inherit; opacity: 0.5; }
+  .tab-btn.active .tab-num { opacity: 1; }
+  .brief-stat { display: flex; flex-direction: column; justify-content: center; padding-left: 20px; border-left: 1px solid var(--rule); flex-shrink: 0; gap: 1px; text-align: right; }
+  .brief-stat .stat-num { font-size: 14px; font-weight: 700; color: var(--navy); line-height: 1.2; }
+  .brief-stat .stat-lbl { font-size: 9px; color: var(--mid-gray); text-transform: uppercase; letter-spacing: 0.08em; }
+  .brief-stat .stat-date { font-size: 9.5px; color: var(--mid-gray); margin-top: 2px; }
+  .main { max-width: 960px; margin: 0 auto; padding: 28px 32px 56px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-header { margin-bottom: 20px; }
+  .section-header .eyebrow { font-size: 9.5px; font-weight: 700; letter-spacing: 1.4px; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; }
+  .section-header h1 { font-size: 26px; font-weight: 700; color: var(--navy); line-height: 1.15; }
+  .section-header .subtitle { font-size: 12px; color: var(--mid-gray); margin-top: 5px; font-style: italic; }
+  .section-rule { border: none; border-top: 2px solid var(--navy); margin: 10px 0 20px; }
+  .cover-hero { background: var(--navy); border-radius: 6px; padding: 30px 32px; margin-bottom: 18px; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
+  .cover-hero-left .eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 1.4px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
+  .cover-hero-left h1 { font-size: 28px; font-weight: 700; color: var(--white); line-height: 1.15; }
+  .cover-hero-left .tagline { font-size: 12px; color: rgba(168,192,214,0.8); margin-top: 6px; }
+  .cover-hero-right { text-align: right; flex-shrink: 0; }
+  .hero-stat-num { font-size: 30px; font-weight: 700; color: var(--white); line-height: 1; }
+  .hero-stat-lbl { font-size: 9px; color: rgba(168,192,214,0.7); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 3px; }
+  .cover-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 18px; }
+  .cover-stat-card { background: var(--white); border: 1px solid var(--rule); border-radius: 5px; padding: 16px; border-top: 3px solid var(--navy); }
+  .cover-stat-card .num { font-size: 20px; font-weight: 700; color: var(--navy); line-height: 1.1; }
+  .cover-stat-card .lbl { font-size: 10.5px; color: var(--mid-gray); margin-top: 4px; line-height: 1.4; }
+  .toc-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 8px; }
+  .toc-grid-6 { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+  .toc-card { background: var(--white); border: 1px solid var(--rule); border-radius: 5px; padding: 14px 12px; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+  .toc-card:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(46,117,182,0.12); }
+  .toc-card .tc-num { font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1; }
+  .toc-card .tc-label { font-size: 8.5px; font-weight: 700; letter-spacing: 1px; color: var(--accent); text-transform: uppercase; margin: 4px 0 3px; }
+  .toc-card .tc-desc { font-size: 9.5px; color: var(--mid-gray); line-height: 1.4; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+  .card { background: var(--white); border: 1px solid var(--rule); border-radius: 5px; padding: 16px 18px; }
+  .card.ice { background: var(--ice); border-color: #C5DFF5; }
+  .card.pale { background: var(--pale); }
+  .card.navy { background: var(--navy); border-color: var(--navy); }
+  .card-label { font-size: 9px; font-weight: 700; letter-spacing: 1.2px; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+  .card.navy .card-label { color: var(--accent); }
+  .profile-list { list-style: none; }
+  .profile-list li { font-size: 11.5px; color: var(--body); padding: 4px 0; border-bottom: 1px solid var(--rule); line-height: 1.4; display: flex; gap: 6px; align-items: flex-start; }
+  .profile-list li:last-child { border-bottom: none; }
+  .profile-list li::before { content: "·"; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+  .situation-item { margin-bottom: 12px; }
+  .situation-item:last-child { margin-bottom: 0; }
+  .situation-item .sit-heading { font-size: 11px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+  .situation-item .sit-body { font-size: 11.5px; color: var(--body); line-height: 1.5; }
+  .opp-card { border-radius: 5px; padding: 18px 16px; }
+  .opp-card .opp-num { font-size: 22px; font-weight: 700; line-height: 1.1; margin-bottom: 6px; }
+  .opp-card .opp-lbl { font-size: 10.5px; line-height: 1.45; }
+  .opp-navy { background: var(--navy); }
+  .opp-navy .opp-num { color: var(--white); }
+  .opp-navy .opp-lbl { color: rgba(168,192,214,0.8); }
+  .opp-ice { background: var(--ice); border: 1px solid #C5DFF5; }
+  .opp-ice .opp-num { color: var(--navy); }
+  .opp-ice .opp-lbl { color: var(--mid-gray); }
+  .opp-gold { background: var(--gold-bg); border: 1px solid #E5D08A; }
+  .opp-gold .opp-num { color: var(--gold-fg); }
+  .opp-gold .opp-lbl { color: var(--gold-fg); }
+  .lp-card { display: grid; grid-template-columns: 48px 1fr; background: var(--white); border: 1px solid var(--rule); border-radius: 5px; margin-bottom: 10px; overflow: hidden; }
+  .lp-badge { background: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: var(--white); }
+  .lp-body { padding: 14px 16px; }
+  .lp-title { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 6px; line-height: 1.35; }
+  .lp-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .chip { font-size: 9.5px; font-weight: 600; padding: 3px 8px; border-radius: 3px; line-height: 1; }
+  .chip-green { background: var(--green-bg); color: var(--green-fg); }
+  .chip-red { background: var(--red-bg); color: var(--red-fg); }
+  .chip-action { background: var(--ice); color: var(--accent); }
+  .lp-detail-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+  .lp-action, .lp-risk { padding: 8px 12px; border-radius: 4px; font-size: 10.5px; line-height: 1.45; }
+  .lp-action { background: var(--pale); }
+  .lp-action .detail-label { font-size: 9px; font-weight: 700; letter-spacing: 0.8px; color: var(--accent); text-transform: uppercase; margin-bottom: 3px; }
+  .lp-risk { background: var(--red-bg); }
+  .lp-risk .detail-label { font-size: 9px; font-weight: 700; letter-spacing: 0.8px; color: var(--red-fg); text-transform: uppercase; margin-bottom: 3px; }
+  .lp-risk p { color: var(--red-fg); font-style: italic; }
+  .lp-action p { color: var(--body); }
+  .concept-card { background: var(--white); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; margin-bottom: 14px; }
+  .concept-header { background: var(--navy); padding: 16px 20px; }
+  .concept-header .c-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 1.4px; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; }
+  .concept-header h3 { font-size: 15px; font-weight: 700; color: var(--white); line-height: 1.3; }
+  .concept-header .c-tagline { font-size: 10px; color: rgba(168,192,214,0.8); margin-top: 4px; font-style: italic; }
+  .concept-body { display: grid; grid-template-columns: 1fr 1fr; }
+  .concept-col { padding: 16px 18px; }
+  .concept-col:first-child { border-right: 1px solid var(--rule); }
+  .concept-col .col-label { font-size: 9px; font-weight: 700; letter-spacing: 1.2px; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; }
+  .concept-col p { font-size: 11.5px; color: var(--body); line-height: 1.55; }
+  .concept-col ul { margin: 6px 0 0 14px; }
+  .concept-col li { font-size: 11.5px; color: var(--body); line-height: 1.5; margin-bottom: 3px; }
+  .concept-footer { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--rule); }
+  .concept-rev { background: var(--green-bg); padding: 10px 18px; border-right: 1px solid #C8E6C9; }
+  .concept-rev .f-label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: var(--green-fg); text-transform: uppercase; margin-bottom: 2px; }
+  .concept-rev p { font-size: 11px; font-weight: 600; color: var(--green-fg); }
+  .concept-risk { background: var(--red-bg); padding: 10px 18px; }
+  .concept-risk .f-label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: var(--red-fg); text-transform: uppercase; margin-bottom: 2px; }
+  .concept-risk p { font-size: 11px; color: var(--red-fg); font-style: italic; }
+  .roi-table { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 11.5px; }
+  .roi-table thead tr { background: var(--navy); }
+  .roi-table thead th { padding: 10px 14px; text-align: left; font-size: 9.5px; font-weight: 700; letter-spacing: 0.6px; color: var(--white); text-transform: uppercase; }
+  .roi-table tbody tr:nth-child(odd) { background: var(--white); }
+  .roi-table tbody tr:nth-child(even) { background: var(--pale); }
+  .roi-table tbody tr.total-row { background: var(--navy) !important; }
+  .roi-table tbody tr.total-row td { color: var(--white); font-weight: 700; }
+  .roi-table tbody td { padding: 10px 14px; color: var(--body); vertical-align: top; border-bottom: 1px solid var(--rule); }
+  .td-rev { font-weight: 700; color: var(--green-fg); }
+  .td-rev-total { font-weight: 700; color: var(--white); }
+  .td-priority { font-weight: 600; }
+  .roi-callouts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .roi-callout { border-radius: 5px; padding: 14px 16px; }
+  .roi-callout.pale-box { background: var(--pale); border: 1px solid var(--rule); }
+  .roi-callout.gold-box { background: var(--gold-bg); border: 1px solid #E5D08A; }
+  .roi-callout .rc-label { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .pale-box .rc-label { color: var(--accent); }
+  .gold-box .rc-label { color: var(--gold-fg); }
+  .roi-callout p { font-size: 11px; line-height: 1.55; color: var(--body); }
+  .gold-box p { color: var(--gold-fg); }
+  .roi-stat-row { display: flex; gap: 12px; }
+  .roi-stat-box { flex: 1; background: var(--navy); border-radius: 5px; padding: 18px 20px; }
+  .rs-num { font-size: 32px; font-weight: 700; color: var(--white); line-height: 1; }
+  .rs-lbl { font-size: 10px; color: rgba(168,192,214,0.75); margin-top: 5px; line-height: 1.4; }
+  .phase-card { border-radius: 5px; overflow: hidden; margin-bottom: 10px; border: 1px solid var(--rule); }
+  .phase-header { padding: 14px 18px; display: flex; align-items: center; gap: 14px; }
+  .phase-header.navy-bg { background: var(--navy); }
+  .phase-header.accent-bg { background: var(--accent); }
+  .phase-header.pale-bg { background: var(--pale); border-bottom: 1px solid var(--rule); }
+  .phase-num { font-size: 26px; font-weight: 700; line-height: 1; flex-shrink: 0; }
+  .navy-bg .phase-num, .accent-bg .phase-num { color: rgba(255,255,255,0.25); }
+  .pale-bg .phase-num { color: rgba(27,42,74,0.2); }
+  .phase-timing { font-size: 9px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 2px; }
+  .navy-bg .phase-timing, .accent-bg .phase-timing { color: rgba(168,192,214,0.75); }
+  .pale-bg .phase-timing { color: var(--accent); }
+  .phase-title { font-size: 14px; font-weight: 700; line-height: 1.2; }
+  .navy-bg .phase-title, .accent-bg .phase-title { color: var(--white); }
+  .pale-bg .phase-title { color: var(--navy); }
+  .phase-body { background: var(--white); padding: 14px 18px; }
+  .phase-item { display: flex; gap: 10px; padding: 5px 0; border-bottom: 1px solid var(--rule); font-size: 11.5px; line-height: 1.45; color: var(--body); }
+  .phase-item:last-child { border-bottom: none; }
+  .phase-bullet { color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .phase-item.revenue-item { background: var(--green-bg); padding: 6px 10px; border-radius: 3px; border: none; margin-top: 4px; }
+  .phase-item.revenue-item .phase-bullet { color: var(--green-fg); }
+  .phase-item.revenue-item span { color: var(--green-fg); font-weight: 600; }
+  .questions-card { background: var(--gold-bg); border: 1px solid #E5D08A; border-radius: 5px; padding: 16px 18px; margin-top: 10px; }
+  .questions-card .q-label { font-size: 9px; font-weight: 700; letter-spacing: 1.2px; color: var(--gold-fg); text-transform: uppercase; margin-bottom: 10px; }
+  .q-item { display: flex; gap: 10px; padding: 5px 0; border-bottom: 1px solid #E5D08A; font-size: 11.5px; line-height: 1.5; color: var(--gold-fg); }
+  .q-item:last-child { border-bottom: none; }
+  .q-num { font-weight: 700; flex-shrink: 0; }
+  .section-sub { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; color: var(--accent); text-transform: uppercase; padding-bottom: 5px; border-bottom: 2px solid var(--accent); margin: 20px 0 12px; }
+  .mt-12 { margin-top: 12px; }
+  .mt-20 { margin-top: 20px; }
+  .mb-12 { margin-bottom: 12px; }
+  .print-btn { position: fixed; bottom: 20px; right: 20px; background: var(--navy); color: var(--white); border: none; border-radius: 4px; padding: 9px 16px; font-size: 11px; font-weight: 600; cursor: pointer; z-index: 999; box-shadow: 0 2px 10px rgba(0,0,0,0.2); letter-spacing: 0.04em; }
+  .print-btn:hover { background: var(--navy-mid); }
+  @media print {
+    .brief-topbar, .print-btn { display: none; }
+    .main { padding: 20px; max-width: 100%; }
+    .section { display: block !important; page-break-before: always; }
+    .section:first-child { page-break-before: avoid; }
+  }
+</style>
+</head>
+<body>
+<header class="brief-topbar">
+  <div class="brief-brand">
+    <div class="eyebrow">Volada Vodka</div>
+    <div class="firm-name">Campaign Concepts</div>
+  </div>
+  <nav class="brief-nav">
+    <button class="tab-btn active" onclick="showTab('overview', this)">Overview</button>
+    <button class="tab-btn" onclick="showTab('campaign1', this)">Campaign 1 — Brand Film</button>
+    <button class="tab-btn" onclick="showTab('campaign2', this)">Campaign 2 — SKU Series</button>
+    <button class="tab-btn" onclick="showTab('production', this)">Production Plan</button>
+  </nav>
+  <div class="brief-stat">
+    <div class="stat-num">17 Assets</div>
+    <div class="stat-lbl">One Shoot Day</div>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- ───────────────────────────── SECTION 1: OVERVIEW ───────────────────────────── -->
+<section id="overview" class="section active">
+  <div class="section-header">
+    <div class="eyebrow">Campaign Strategy</div>
+    <h1>Two Campaigns · One Shoot Day</h1>
+    <div class="subtitle">Creative direction: Dr. Squatch / Liquid Death — punchy, irreverent, direct-address, product-forward · March 28, 2026</div>
+  </div>
+  <hr class="section-rule"/>
+
+  <div class="cover-hero">
+    <div class="cover-hero-left">
+      <div class="eyebrow">Content System · Austin, TX</div>
+      <h1>Volada Vodka</h1>
+      <div class="tagline">Brand indictment film + SKU-first cocktail series — built for TikTok, designed to close the gap with Deep Eddy</div>
+    </div>
+    <div class="cover-hero-right">
+      <div class="hero-stat-num">5-Person</div>
+      <div class="hero-stat-lbl">Crew · 1 Day</div>
+    </div>
+  </div>
+
+  <div class="cover-stats">
+    <div class="cover-stat-card">
+      <div class="num">2 Campaigns</div>
+      <div class="lbl">Brand indictment film + SKU-first cocktail series</div>
+    </div>
+    <div class="cover-stat-card">
+      <div class="num">17+ Assets</div>
+      <div class="lbl">From a single shoot day — hero film, 5 cuts, 9 SKU videos, variations</div>
+    </div>
+    <div class="cover-stat-card">
+      <div class="num">1 Shoot Day</div>
+      <div class="lbl">Consolidated into 3 setup blocks — no second day required</div>
+    </div>
+  </div>
+
+  <div class="two-col mb-12 mt-20">
+    <div class="concept-card" style="margin-bottom:0">
+      <div class="concept-header">
+        <div class="c-eyebrow">Campaign 1</div>
+        <h3>"You've Been Drinking the Wrong Thing"</h3>
+        <div class="c-tagline">Brand Indictment Film — 75-second hero + 5 platform-native cuts</div>
+      </div>
+      <div class="concept-body" style="grid-template-columns:1fr">
+        <div class="concept-col" style="border:none">
+          <div class="col-label">Problem Being Solved</div>
+          <p>Volada is spending shelf space and distributor relationships competing with Deep Eddy — which has national distribution, Heaven Hill's backing, and documented TV advertising — while having no video presence at all. A single third-party TikTok creator appears to be generating more brand visibility than the company's own 179 Instagram posts.</p>
+        </div>
+      </div>
+      <div class="concept-footer">
+        <div class="concept-rev">
+          <div class="f-label">Primary Outcome</div>
+          <p>Brand recall at Total Wine; YouTube pre-roll against competitor search terms</p>
+        </div>
+        <div class="concept-risk">
+          <div class="f-label">If Not Executed</div>
+          <p>Deep Eddy continues owning the shelf conversation. Volada's first-mover claim goes unannounced.</p>
+        </div>
+      </div>
+    </div>
+    <div class="concept-card" style="margin-bottom:0">
+      <div class="concept-header">
+        <div class="c-eyebrow">Campaign 2</div>
+        <h3>"Three Flavors. No Rules."</h3>
+        <div class="c-tagline">SKU-First Cocktail Series — 3 recipe videos + flavor comparison + paid variations</div>
+      </div>
+      <div class="concept-body" style="grid-template-columns:1fr">
+        <div class="concept-col" style="border:none">
+          <div class="col-label">Problem Being Solved</div>
+          <p>Volada has three visually distinct, culturally specific SKUs and zero video showing what they taste like or how to use them. Recipe-format content on TikTok is the lowest-friction path to follower growth for a spirits brand at this stage, and Volada doesn't have a single piece of it.</p>
+        </div>
+      </div>
+      <div class="concept-footer">
+        <div class="concept-rev">
+          <div class="f-label">Primary Outcome</div>
+          <p>Launch Volada TikTok channel; 10,000+ views in first 30 days; retail partner repost assets</p>
+        </div>
+        <div class="concept-risk">
+          <div class="f-label">If Not Executed</div>
+          <p>Brand continues to be represented on TikTok only by third-party UGCthe brand has no control over.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="roi-stat-row mt-20">
+    <div class="roi-stat-box">
+      <div class="rs-num">8</div>
+      <div class="rs-lbl">Campaign 1 deliverables (hero film + 5 cuts + 2 variations)</div>
+    </div>
+    <div class="roi-stat-box">
+      <div class="rs-num">9</div>
+      <div class="rs-lbl">Campaign 2 deliverables (3 SKU videos + comparison + stories + paid variation)</div>
+    </div>
+    <div class="roi-stat-box">
+      <div class="rs-num">~1.9×</div>
+      <div class="rs-lbl">Assets per production hour across the full day</div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── SECTION 2 CAMPAIGN 1 ───────────────────────────── -->or motivated practical. The goal here is believability — this is where the social-friendly warmth lives. Soft and directional, not flat.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── SECTION 3: CAMPAIGN 2 ───────────────────────────── -->
+<section id="campaign2" class="section">
+  <div class="section-header">
+    <div class="eyebrow">Campaign 2</div>
+    <h1>"Three Flavors. No Rules."</h1>
+    <div class="subtitle">SKU-first cocktail series — 3 recipe videos + flavor comparison + paid variations · No additional shoot day required</div>
+  </div>
+  <hr class="section-rule"/>
+
+  <div class="card ice mb-12">
+    <div class="card-label">Core Idea</div>
+    <div class="situation-item">
+      <div class="sit-body">Three videos, one per SKU. Each opens with the bottle in frame — no context, no setup — and immediately demonstrates a cocktail build. The VO (or on-screen text) is four words or fewer per beat: "Real watermelon. Real agave. Done." The cuts happen at the moment of pour, the ice drop, and the first sip. No slow dissolves. No acoustic guitar. Treat a fruit vodka like it's dangerous, because compared to what else is on the shelf, it is.</div>
+    </div>
+  </div>
+
+  <div class="section-sub">Content Package</div>
+  <table class="roi-table mb-12">
+    <thead><tr><th>Deliverable</th><th>Format / Runtime</th><th>Platform</th><th>Business Function</th></tr></thead>
+    <tbody>
+      <tr><td><strong>SKU Video 1: Watermelon Agua Fresca</strong></td><td>45s recipe build — hook: 'Stop making boring drinks.'</td><td>TikTok, Reels</td><td>TikTok channel launch piece; Watermelon SKU visibility at Total Wine</td></tr>
+      <tr><td><strong>SKU Video 2: Hibiscus Agua Fresca</strong></td><td>45s recipe build — hook: 'Hibiscus. Agave. No apologies.'</td><td>TikTok, Reels</td><td>Hibiscus SKU awareness; Twin Liquors shelf recall</td></tr>
+      <tr><td><strong>SKU Video 3: Mango Chamoy</strong></td><td>45s recipe build — hook: 'Mango Chamoy. This one hits different.'</td><td>TikTok, Reels</td><td>Goody Goody SKU awareness; most differentiated flavor — highest shareability</td></tr>
+      <tr><td>Flavor Comparison Cut</td><td>30s — all three poured side by side, no VO, just sound design</td><td>TikTok, Reels, Paid</td><td>Introduces the full line to first-time viewers; retail partner repost asset</td></tr>
+      <tr><td>Stories/Shorts Cuts (3x)</td><td>15s vertical per SKU — condensed pour and sip</td><td>Instagram Stories, YouTube Shorts</td><td>Retargeting touchpoints; each links to the corresponding full recipe video</td></tr>
+      <tr><td>Paid Variation: Mango Chamoy Spanish VO</td><td>45s — same footage, Spanish narration</td><td>TikTok Spark Ads, Meta targeting</td><td>Reaches primary Latino-American demographic with culturally native delivery</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-sub">Why No Second Shoot Day Is Needed</div>
+  <div class="card mb-12">
+    <div class="card-label">Production Consolidation Logic</div>
+    <div class="situation-item">
+      <div class="sit-body">Campaign 2 exists because Campaign 1's production system has spare capacity in Blocks 2 and 3. The two-hour product beauty setup (Block 2) that captures Campaign 1's pour sequences produces more raw footage than Campaign 1 needs. Rather than leaving that time unused, Block 2 is structured to also deliver all individual SKU pours for the recipe videos, the flavor comparison side-by-side, and ingredient close-up cutaways.</div>
+    </div>
+    <div class="situation-item">
+      <div class="sit-body">Block 3 (social bar setup) was originally scoped for Campaign 1's lifestyle B-roll. It's extended by 30–45 minutes to capture the three full cocktail builds for the SKU recipe videos. Same lighting setup, same dressed bar, same crew. Campaign 2 adds 9 deliverables to the day at the cost of roughly 45 minutes of incremental production time. The marginal cost per additional deliverable approaches zero.</div>
+    </div>
+  </div>
+
+  <div class="roi-stat-row">
+    <div class="roi-stat-box">
+      <div class="rs-num">0</div>
+      <div class="rs-lbl">Additional shoot days needed for Campaign 2</div>
+    </div>
+    <div class="roi-stat-box">
+      <div class="rs-num">45 min</div>
+      <div class="rs-lbl">Incremental production time to capture all Campaign 2 recipe builds</div>
+    </div>
+    <div class="roi-stat-box">
+      <div class="rs-num">9</div>
+      <div class="rs-lbl">Campaign 2 deliverables at near-zero marginal cost</div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── SECTION 4: PRODUCTION PLAN ───────────────────────────── -->
+<section id="production" class="section">
+  <div class="section-header">
+    <div class="eyebrow">Production Plan</div>
+    <h1>Single Shoot Day — 3 Setup Blocks</h1>
+    <div class="subtitle">Consolidated shoot day structure · 5-person crew · No second day required for either campaign</div>
+  </div>
+  <hr class="section-rule"/>
+
+  <div class="section-sub">Day Structure</div>
+  <div class="phase-card">
+    <div class="phase-header navy-bg">
+      <div class="phase-num">1</div>
+      <div>
+        <div class="phase-timing">7:00 AM – 10:30 AM · 2.5 hrs incl. setup</div>
+        <div class="phase-title">Block 1 — Founder Interview &amp; Direct-Address</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-item"><span class="phase-bullet">·</span><span>Single-source key light (large softbox camera left), negative fill (black V-flat camera right), textured background (brick, adobe, or warm painted wall)</span></div>
+      <div class="phase-item"><span class="phase-bullet">·</span><span>Ben on-camera: all hero VO lines, all direct-address cuts, B-roll of Ben handling product</span></div>
+      <div class="phase-item"><span class="phase-bullet">·</span><span>Captures: Campaign 1 hero film segments, Cuts 1, 3, 5 founder moments, scripted safety takes</span></div>
+      <div class="phase-item"><span class="phase-bullet">·</span><span>Reset: 30 min — clear furniture, dress product table, adjust light to overhead beauty setup</span></div>
+    </div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header accent-bg">
+      <div class="phase-num">2</div>
+      <div>
+        <div class="phase-timing">11:00 AM – 1:00 PM · 2 hrs incl. setup · Shared Block</div>
+        <div class="phase-title">Block 2 — Product Beauty &amp; Pour Shots</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-item"><span class="phase-bullet">·</span><span>Overhead or 45-degree product beauty setup. LED panel or HMI bounced into white card. Black or tiled surface. All three SKUs dressed.</span></div>
+      <div class="phase-item"><span class="phase-bullet">·</span><span>Campaign 1: all product close-up footage, pour sequences for Cuts 2 and 4, condensation and texture shots</span></div>
+      <div class="phase-item"><span class="phase-bullet">·</span><span>Campaign 2: all individual SKU pours for recipe videos, flavor comparison side-by-side, ingredient close-up cutaways</span></div>
+      <div class="phase-item"><span class="phase-bullet">·</span><span>Slow-motion on all pours (120fps minimum) — dedicated sub-list within block; at least 3 selectable pours per SKU per angle</span></div>
+      <div class="phase-item"><span class="phase-bullet">·</span><span>Reset: 30 min — add glassware, garnishes, dress bar surface for social setup</span></div>
+    </div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header pale-bg">
+      <div class="phase-num">3</div>
+      <div>
+        <div class="phase-timing">1:30 PM – 4:00 PM · 2 hrs + 30–45 min extension · Shared Block</div>
+        <div class="phase-title">Block 3 — Cocktail Serve &amp; Lifestyle</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-item"><span class="phase-bullet">·</span><span>Social bar setup: backlit bottles in background, garnished drinks in foreground, talent (Ben or supporting talent) in frame</span></div>
+      <div class="phase-item"><span class="phase-bullet">·</span><span>Campaign 1: lifestyle B-roll, Ben picking up finished glass for edit continuity, garnish/ice detail shots</span></div>
+      <div class="phase-item"><span class="phase-bullet">·</span><span>Campaign 2: three full cocktail build sequences (Watermelon, Hibiscus, Mango Chamoy), serve shots, sip and reaction beats</span></div>
+      <div class="phase-item"><span class="phase-bullet">·</span><span>TikTok-native framing: 9:16 vertical for all primary captures — DP shoots 9:16 first, then reframes for 16:9 on hero angles</span></div>
+    </div>
+  </div>
+
+  <div class="section-sub mt-20">Crew</div>
+  <table class="roi-table mb-12">
+    <thead><tr><th>Role</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Director / Producer</strong></td><td>Runs the day, manages Ben's performance, owns the shot list. Manages shot list transition from Campaign 1 to Campaign 2 content within Blocks 2 and 3.</td></tr>
+      <tr><td><strong>DP</strong></td><td>Owns all three setups; responsible for pour shots and slow-mo capture. Switches from 16:9 to 9:16 native capture at start of Block 2 recipe work.</td></tr>
+      <tr><td><strong>Gaffer / Grip</strong></td><td>Sets and resets lighting between blocks; doubles as AC for Block 1. No lighting reset between campaigns — same setup handles both.</td></tr>
+      <tr><td><strong>Audio / AC</strong></td><td>Boom and lav for Ben's interview segments; doubles as script supervisor. Sound design elements (ice, pour, fizz) captured live on set.</td></tr>
+      <tr><td><strong>PA / On-set Editor</strong></td><td>Manages product, handles talent needs, ingests cards during lunch. Manages ingredient prep and bar dressing between Campaign 1 and Campaign 2 work.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-sub mt-20">ROI Summary</div>
+  <table class="roi-table">
+    <thead><tr><th>Metric</th><th>Campaign 1</th><th>Combined</th></tr></thead>
+    <tbody>
+      <tr><td>Total Production Time</td><td colspan="2">1 day (8 hours shooting, 1 hour lunch/setup)</td></tr>
+      <tr><td>Total Deliverables</td><td>8 assets (1 hero + 5 cuts + 2 variations)</td><td>17+ assets from 1 day</td></tr>
+      <tr><td>Deliverables per Hour</td><td>~1 per shooting hour</td><td>~1.9 per shooting hour</td></tr>
+      <tr><td>Block 2 Setup Reuse</td><td>4 Campaign 1 deliverables</td><td>7 assets total from one setup</td></tr>
+      <tr><td>Campaign 2 Incremental Time</td><td>—</td><td>~45 min added to Block 3</td></tr>
+      <tr class="total-row"><td>Efficiency Justification</td><td colspan="2">Campaign 2 adds 9 deliverables at the cost of 45 minutes. Eliminating a second mobilization day is the single largest cost reduction available.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+<button class="print-btn" onclick="window.print()">Print / Export PDF</button>
+<script>  function showTab(sectionId, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+  function showTabByName(sectionId) {
+    const btns = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.section');
+    const ids = Array.from(sections).map(s => s.id);
+    const idx = ids.indexOf(sectionId);
+    if (idx >= 0) showTab(sectionId, btns[idx]);
+  }
+</script>
+</body>
+</html>
