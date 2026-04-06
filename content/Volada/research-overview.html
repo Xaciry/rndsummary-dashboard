@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Volada Vodka — Client Research Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:      #1B2A4A;
+    --navy-mid:  #243659;
+    --accent:    #2E75B6;
+    --steel:     #4A6FA5;
+    --gold:      #c9a96e;
+    --gold-bg:   #FFF8E1;
+    --gold-fg:   #7B5B00;
+    --green-bg:  #E8F5E9;
+    --green-fg:  #1B5E20;
+    --red-bg:    #FDECEA;
+    --red-fg:    #B71C1C;
+    --ice:       #EBF3FB;
+    --pale:      #F4F7FA;
+    --rule:      #D0D5DD;
+    --body:      #333333;
+    --mid-gray:  #6B7280;
+    --white:     #FFFFFF;
+  }
+
+  html, body { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 13px; color: var(--body); background: var(--pale); -webkit-font-smoothing: antialiased; }
+
+  .brief-topbar { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--rule); display: flex; align-items: stretch; padding: 0 28px; height: 52px; gap: 0; }
+  .brief-brand { display: flex; flex-direction: column; justify-content: center; padding-right: 22px; border-right: 1px solid var(--rule); margin-right: 4px; flex-shrink: 0; gap: 2px; }
+  .brief-brand .eyebrow { font-size: 9px; font-weight: 600; letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase; line-height: 1; }
+  .brief-brand .firm-name { font-size: 13px; font-weight: 600; color: var(--navy); line-height: 1.2; white-space: nowrap; }
+  .brief-nav { display: flex; align-items: stretch; flex: 1; overflow-x: auto; scrollbar-width: none; }
+  .brief-nav::-webkit-scrollbar { display: none; }
+  .tab-btn { display: inline-flex; align-items: center; padding: 0 16px; background: none; border: none; border-bottom: 2px solid transparent; font-family: inherit; font-size: 12px; font-weight: 400; color: #888; cursor: pointer; white-space: nowrap; transition: color 0.14s ease, border-color 0.14s ease; position: relative; top: 1px; gap: 6px; }
+  .tab-btn:hover { color: var(--navy); }
+  .tab-btn.active { color: var(--navy); font-weight: 500; border-bottom-color: var(--gold); }
+  .tab-num { font-size: 9.5px; font-weight: 700; color: inherit; opacity: 0.5; }
+  .tab-btn.active .tab-num { opacity: 1; }
+  .brief-stat { display: flex; flex-direction: column; justify-content: center; padding-left: 20px; border-left: 1px solid var(--rule); flex-shrink: 0; gap: 1px; text-align: right; }
+  .brief-stat .stat-num { font-size: 14px; font-weight: 700; color: var(--navy); line-height: 1.2; }
+  .brief-stat .stat-lbl { font-size: 9px; color: var(--mid-gray); text-transform: uppercase; letter-spacing: 0.08em; }
+  .brief-stat .stat-date { font-size: 9.5px; color: var(--mid-gray); margin-top: 2px; }
+  .main { max-width: 960px; margin: 0 auto; padding: 28px 32px 56px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-header { margin-bottom: 20px; }
+  .section-header .eyebrow { font-size: 9.5px; font-weight: 700; letter-spacing: 1.4px; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; }
+  .section-header h1 { font-size: 26px; font-weight: 700; color: var(--navy); line-height: 1.15; }
+  .section-header .subtitle { font-size: 12px; color: var(--mid-gray); margin-top: 5px; font-style: italic; }
+  .section-rule { border: none; border-top: 2px solid var(--navy); margin: 10px 0 20px; }
+  .cover-hero { background: var(--navy); border-radius: 6px; padding: 30px 32px; margin-bottom: 18px; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
+  .cover-hero-left .eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 1.4px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
+  .cover-hero-left h1 { font-size: 28px; font-weight: 700; color: var(--white); line-height: 1.15; }
+  .cover-hero-left .tagline { font-size: 12px; color: rgba(168,192,214,0.8); margin-top: 6px; }
+  .cover-hero-right { text-align: right; flex-shrink: 0; }
+  .hero-stat-num { font-size: 30px; font-weight: 700; color: var(--white); line-height: 1; }
+  .hero-stat-lbl { font-size: 9px; color: rgba(168,192,214,0.7); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 3px; }
+  .cover-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 18px; }
+  .cover-stat-card { background: var(--white); border: 1px solid var(--rule); border-radius: 5px; padding: 16px; border-top: 3px solid var(--navy); }
+  .cover-stat-card .num { font-size: 20px; font-weight: 700; color: var(--navy); line-height: 1.1; }
+  .cover-stat-card .lbl { font-size: 10.5px; color: var(--mid-gray); margin-top: 4px; line-height: 1.4; }
+  .toc-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 8px; }
+  .toc-grid-6 { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+  .toc-card { background: var(--white); border: 1px solid var(--rule); border-radius: 5px; padding: 14px 12px; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+  .toc-card:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(46,117,182,0.12); }
+  .toc-card .tc-num { font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1; }
+  .toc-card .tc-label { font-size: 8.5px; font-weight: 700; letter-spacing: 1px; color: var(--accent); text-transform: uppercase; margin: 4px 0 3px; }
+  .toc-card .tc-desc { font-size: 9.5px; color: var(--mid-gray); line-height: 1.4; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+  .card { background: var(--white); border: 1px solid var(--rule); border-radius: 5px; padding: 16px 18px; }
+  .card.ice { background: var(--ice); border-color: #C5DFF5; }
+  .card.pale { background: var(--pale); }
+  .card.navy { background: var(--navy); border-color: var(--navy); }
+  .card-label { font-size: 9px; font-weight: 700; letter-spacing: 1.2px; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+  .card.navy .card-label { color: var(--accent); }
+  .profile-list { list-style: none; }
+  .profile-list li { font-size: 11.5px; color: var(--body); padding: 4px 0; border-bottom: 1px solid var(--rule); line-height: 1.4; display: flex; gap: 6px; align-items: flex-start; }
+  .profile-list li:last-child { border-bottom: none; }
+  .profile-list li::before { content: "·"; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+  .situation-item { margin-bottom: 12px; }
+  .situation-item:last-child { margin-bottom: 0; }
+  .situation-item .sit-heading { font-size: 11px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+  .situation-item .sit-body { font-size: 11.5px; color: var(--body); line-height: 1.5; }
+  .opp-card { border-radius: 5px; padding: 18px 16px; }
+  .opp-card .opp-num { font-size: 22px; font-weight: 700; line-height: 1.1; margin-bottom: 6px; }
+  .opp-card .opp-lbl { font-size: 10.5px; line-height: 1.45; }
+  .opp-navy { background: var(--navy); }
+  .opp-navy .opp-num { color: var(--white); }
+  .opp-navy .opp-lbl { color: rgba(168,192,214,0.8); }
+  .opp-ice { background: var(--ice); border: 1px solid #C5DFF5; }
+  .opp-ice .opp-num { color: var(--navy); }
+  .opp-ice .opp-lbl { color: var(--mid-gray); }
+  .opp-gold { background: var(--gold-bg); border: 1px solid #E5D08A; }
+  .opp-gold .opp-num { color: var(--gold-fg); }
+  .opp-gold .opp-lbl { color: var(--gold-fg); }
+  .lp-card { display: grid; grid-template-columns: 48px 1fr; background: var(--white); border: 1px solid var(--rule); border-radius: 5px; margin-bottom: 10px; overflow: hidden; }
+  .lp-badge { background: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: var(--white); }
+  .lp-body { padding: 14px 16px; }
+  .lp-title { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 6px; line-height: 1.35; }
+  .lp-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .chip { font-size: 9.5px; font-weight: 600; padding: 3px 8px; border-radius: 3px; line-height: 1; }
+  .chip-green { background: var(--green-bg); color: var(--green-fg); }
+  .chip-red { background: var(--red-bg); color: var(--red-fg); }
+  .chip-action { background: var(--ice); color: var(--accent); }
+  .lp-detail-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+  .lp-action, .lp-risk { padding: 8px 12px; border-radius: 4px; font-size: 10.5px; line-height: 1.45; }
+  .lp-action { background: var(--pale); }
+  .lp-action .detail-label { font-size: 9px; font-weight: 700; letter-spacing: 0.8px; color: var(--accent); text-transform: uppercase; margin-bottom: 3px; }
+  .lp-risk { background: var(--red-bg); }
+  .lp-risk .detail-label { font-size: 9px; font-weight: 700; letter-spacing: 0.8px; color: var(--red-fg); text-transform: uppercase; margin-bottom: 3px; }
+  .lp-risk p { color: var(--red-fg); font-style: italic; }
+  .lp-action p { color: var(--body); }
+  .concept-card { background: var(--white); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; margin-bottom: 14px; }
+  .concept-header { background: var(--navy); padding: 16px 20px; }
+  .concept-header .c-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 1.4px; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; }
+  .concept-header h3 { font-size: 15px; font-weight: 700; color: var(--white); line-height: 1.3; }
+  .concept-header .c-tagline { font-size: 10px; color: rgba(168,192,214,0.8); margin-top: 4px; font-style: italic; }
+  .concept-body { display: grid; grid-template-columns: 1fr 1fr; }
+  .concept-col { padding: 16px 18px; }
+  .concept-col:first-child { border-right: 1px solid var(--rule); }
+  .concept-col .col-label { font-size: 9px; font-weight: 700; letter-spacing: 1.2px; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; }
+  .concept-col p { font-size: 11.5px; color: var(--body); line-height: 1.55; }
+  .concept-col ul { margin: 6px 0 0 14px; }
+  .concept-col li { font-size: 11.5px; color: var(--body); line-height: 1.5; margin-bottom: 3px; }
+  .concept-footer { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--rule); }
+  .concept-rev { background: var(--green-bg); padding: 10px 18px; border-right: 1px solid #C8E6C9; }
+  .concept-rev .f-label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: var(--green-fg); text-transform: uppercase; margin-bottom: 2px; }
+  .concept-rev p { font-size: 11px; font-weight: 600; color: var(--green-fg); }
+  .concept-risk { background: var(--red-bg); padding: 10px 18px; }
+  .concept-risk .f-label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: var(--red-fg); text-transform: uppercase; margin-bottom: 2px; }
+  .concept-risk p { font-size: 11px; color: var(--red-fg); font-style: italic; }
+  .roi-table { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 11.5px; }
+  .roi-table thead tr { background: var(--navy); }
+  .roi-table thead th { padding: 10px 14px; text-align: left; font-size: 9.5px; font-weight: 700; letter-spacing: 0.6px; color: var(--white); text-transform: uppercase; }
+  .roi-table tbody tr:nth-child(odd) { background: var(--white); }
+  .roi-table tbody tr:nth-child(even) { background: var(--pale); }
+  .roi-table tbody tr.total-row { background: var(--navy) !important; }
+  .roi-table tbody tr.total-row td { color: var(--white); font-weight: 700; }
+  .roi-table tbody td { padding: 10px 14px; color: var(--body); vertical-align: top; border-bottom: 1px solid var(--rule); }
+  .td-rev { font-weight: 700; color: var(--green-fg); }
+  .td-rev-total { font-weight: 700; color: var(--white); }
+  .td-priority { font-weight: 600; }
+  .roi-callouts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .roi-callout { border-radius: 5px; padding: 14px 16px; }
+  .roi-callout.pale-box { background: var(--pale); border: 1px solid var(--rule); }
+  .roi-callout.gold-box { background: var(--gold-bg); border: 1px solid #E5D08A; }
+  .roi-callout .rc-label { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .pale-box .rc-label { color: var(--accent); }
+  .gold-box .rc-label { color: var(--gold-fg); }
+  .roi-callout p { font-size: 11px; line-height: 1.55; color: var(--body); }
+  .gold-box p { color: var(--gold-fg); }
+  .roi-stat-row { display: flex; gap: 12px; }
+  .roi-stat-box { flex: 1; background: var(--navy); border-radius: 5px; padding: 18px 20px; }
+  .rs-num { font-size: 32px; font-weight: 700; color: var(--white); line-height: 1; }
+  .rs-lbl { font-size: 10px; color: rgba(168,192,214,0.75); margin-top: 5px; line-height: 1.4; }
+  .phase-card { border-radius: 5px; overflow: hidden; margin-bottom: 10px; border: 1px solid var(--rule); }
+  .phase-header { padding: 14px 18px; display: flex; align-items: center; gap: 14px; }
+  .phase-header.navy-bg { background: var(--navy); }
+  .phase-header.accent-bg { background: var(--accent); }
+  .phase-header.pale-bg { background: var(--pale); border-bottom: 1px solid var(--rule); }
+  .phase-num { font-size: 26px; font-weight: 700; line-height: 1; flex-shrink: 0; }
+  .navy-bg .phase-num, .accent-bg .phase-num { color: rgba(255,255,255,0.25); }
+  .pale-bg .phase-num { color: rgba(27,42,74,0.2); }
+  .phase-timing { font-size: 9px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 2px; }
+  .navy-bg .phase-timing, .accent-bg .phase-timing { color: rgba(168,192,214,0.75); }
+  .pale-bg .phase-timing { color: var(--accent); }
+  .phase-title { font-size: 14px; font-weight: 700; line-height: 1.2; }
+  .navy-bg .phase-title, .accent-bg .phase-title { color: var(--white); }
+  .pale-bg .phase-title { color: var(--navy); }
+  .phase-body { background: var(--white); padding: 14px 18px; }
+  .phase-item { display: flex; gap: 10px; padding: 5px 0; border-bottom: 1px solid var(--rule); font-size: 11.5px; line-height: 1.45; color: var(--body); }
+  .phase-item:last-child { border-bottom: none; }
+  .phase-bullet { color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .phase-item.revenue-item { background: var(--green-bg); padding: 6px 10px; border-radius: 3px; border: none; margin-top: 4px; }
+  .phase-item.revenue-item .phase-bullet { color: var(--green-fg); }
+  .phase-item.revenue-item span { color: var(--green-fg); font-weight: 600; }
+  .questions-card { background: var(--gold-bg); border: 1px solid #E5D08A; border-radius: 5px; padding: 16px 18px; margin-top: 10px; }
+  .questions-card .q-label { font-size: 9px; font-weight: 700; letter-spacing: 1.2px; color: var(--gold-fg); text-transform: uppercase; margin-bottom: 10px; }
+  .q-item { display: flex; gap: 10px; padding: 5px 0; border-bottom: 1px solid #E5D08A; font-size: 11.5px; line-height: 1.5; color: var(--gold-fg); }
+  .q-item:last-child { border-bottom: none; }
+  .q-num { font-weight: 700; flex-shrink: 0; }
+  .section-sub { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; color: var(--accent); text-transform: uppercase; padding-bottom: 5px; border-bottom: 2px solid var(--accent); margin: 20px 0 12px; }
+  .mt-12 { margin-top: 12px; }
+  .mt-20 { margin-top: 20px; }
+  .mb-12 { margin-bottom: 12px; }
+  .print-btn { position: fixed; bottom: 20px; right: 20px; background: var(--navy); color: var(--white); border: none; border-radius: 4px; padding: 9px 16px; font-size: 11px; font-weight: 600; cursor: pointer; z-index: 999; box-shadow: 0 2px 10px rgba(0,0,0,0.2); letter-spacing: 0.04em; }
+  .print-btn:hover { background: var(--navy-mid); }
+  @media print {
+    .brief-topbar, .print-btn { display: none; }
+    .main { padding: 20px; max-width: 100%; }
+    .section { display: block !important; page-break-before: always; }
+    .section:first-child { page-break-before: avoid; }
+  }
+</style>
+</head>
+<body>
+<header class="brief-topbar">
+  <div class="brief-brand">
+    <div class="eyebrow">Volada Vodka</div>
+    <div class="firm-name">Big Thirst, Inc.</div>
+  </div>
+  <nav class="brief-nav">
+    <button class="tab-btn active" onclick="showTab('overview', this)">Overview</button>
+    <button class="tab-btn" onclick="showTab('market', this)">Market Position</button>
+    <button class="tab-btn" onclick="showTab('marketing', this)">Marketing Gaps</button>
+    <button class="tab-btn" onclick="showTab('pitch', this)">Pitch &amp; Score</button>
+  </nav>
+  <div class="brief-stat">
+    <div class="stat-num">15 / 20</div>
+    <div class="stat-lbl">Client Value Score — Strong Fit</div>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- ───────────────────────────── SECTION 1: OVERVIEW ───────────────────────────── -->
+<section id="overview" class="section active">
+  <div class="section-header">
+    <div class="eyebrow">Research Intelligence Report</div>
+    <h1>Volada Vodka — Snapshot</h1>
+    <div class="subtitle">Client research report — Full system run — March 28, 2026</div>
+  </div>
+  <hr class="section-rule"/>
+
+  <div class="cover-hero">
+    <div class="cover-hero-left">
+      <div class="eyebrow">Craft / Artisan Flavored Vodka · Austin, TX</div>
+      <h1>Volada Vodka</h1>
+      <div class="tagline">First vodka brand built entirely around Mexican Aguas Frescas — not a flavor extension, a category</div>
+    </div>
+    <div class="cover-hero-right">
+      <div class="hero-stat-num">$19.99</div>
+      <div class="hero-stat-lbl">Per 750mL · All 3 SKUs</div>
+    </div>
+  </div>
+
+  <div class="cover-stats">
+    <div class="cover-stat-card">
+      <div class="num">3 SKUs</div>
+      <div class="lbl">Watermelon Button>
+      <div class="lbl">Watermelon · Hibiscus · Mango Chamoy — all agave-sweetened</div>
+    </div>
+    <div class="cover-stat-card">
+      <div class="num">Total Wine</div>
+      <div class="lbl">+ Twin Liquors + Goody Goody + Big Thirst e-commerce (40+ states)</div>
+    </div>
+    <div class="cover-stat-card">
+      <div class="num">5th-Gen</div>
+      <div class="lbl">Founder Ben Rosen Rotondo — Yale MBA, Latin American spirits family roots</div>
+    </div>
+  </div>
+
+  <div class="section-sub">Company Profile</div>
+  <table class="roi-table">
+    <thead><tr><th>Field</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td>Legal Entity</td><td>Big Thirst, Inc. (e-commerce/retail fulfillment) / Latin Liquors Limited (operating/holding entity)</td></tr>
+      <tr><td>Product Line</td><td>3 SKUs, all 750mL, 70 proof (35% ABV), $19.99/bottle. Watermelon Agua Fresca · Hibiscus Agua Fresca · Mango Chamoy Agua Fresca</td></tr>
+      <tr><td>Sweetener</td><td>Pure agave nectar — premium-adjacent ingredient story</td></tr>
+      <tr><td>Headquarters</td><td>Austin, TX — Distilled and produced in San Antonio, TX</td></tr>
+      <tr><td>Founder</td><td>Benjamin (Ben) Rosen Rotondo — Yale SOM MBA, developed concept at Yale startup accelerator with guidance from founders of Honest Tea and Onda</td></tr>
+      <tr><td>Advisory Board</td><td>Onda (spirits brand) founder sits on advisory board</td></tr>
+      <tr><td>Revenue Stage</td><td>Early-stage / pre-scale. Sub-$1M ARR (inferred). No public funding rounds found.</td></tr>
+      <tr><td>Target Demo</td><td>Texas consumers, Latino-American households, younger adults (21–35) drawn to culturally-rooted spirits</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-sub mt-20">Revenue Signals</div>
+  <ul class="profile-list">
+    <li>Major chain retail placement at Total Wine &amp; More — all three SKUs listed with product pages. For a new spirits brand, Total Wine authorization is a meaningful milestone requiring distributor relationships and minimum velocity commitments.</li>
+    <li>Twin Liquors placement confirmed (Hibiscus SKU at minimum) — Twin Liquors is one of Texas's largest independent chains (~100+ stores statewide). Goody Goody Liquor product page also found for Mango Chamoy SKU.</li>
+    <li>Big Thirst e-commerce platform active — products listed on shop.bigthirst.com, providing three-tier-compliant online sales and fulfillment in 40+ states.</li>
+    <li>$19.99 price point positions Volada in accessible premium flavored vodka territory — above mass-market (Smirnoff, Absolut at ~$14–17) but below ultra-premium. Works for both chain retail velocity and on-premise backbar placement.</li>
+    <li>No public funding rounds found. Brand is either bootstrapped, family-funded, or has raised via private/angel channels not publicly disclosed.</li>
+  </ul>
+</section>
+
+<!-- ───────────────────────────── SECTION 2: MARKET POSITION ───────────────────────────── -->
+<section id="market" class="section">
+  <div class="section-header">
+    <div class="eyebrow">Market Analysis</div>
+    <h1>Market Position &amp; Competitors</h1>
+    <div class="subtitle">Where Volada sits, who it competes against, and what the gap looks like</div>
+  </div>
+  <hr class="section-rule"/>
+
+  <div class="card ice mb-12">
+    <div class="card-label">Core Differentiator</div>
+    <div class="situation-item">
+      <div class="sit-body">Volada is the only vodka brand whose entire identity and SKU lineup is structured around Mexican Aguas Frescas. Competitors offer Mexican-themed or fruit-flavored vodkas as line extensions; Volada is the category itself. Use of agave nectar, real ingredients, and a culturally grounded founder story compounds this distinction. This is a legitimate and defensible positioning — not a vibe, a structure.</div>
+    </div>
+  </div>
+
+  <div class="two-col mb-12">
+    <div class="card">
+      <div class="card-label">Competitor List Cut Off</div>
+      <ul class="profile-list">
+        <li>Austin, TX. Dominant Texas vodka brand with ~43% on-premise share in Texas venues. Corn-based, unflavored, ~$20–22/750mL. National distribution, 3.8M+ cases/year.</li>
+        <li>Tito's does not play in flavored vodka — a gap Volada can exploit — but Tito's brand gravity compresses shelf and cultural space for emerging Texas brands.</li>
+        <li>Social: 340K+ Instagram followers. Outpacing Volada by orders of magnitude on content.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-label">Competitor 2 — Deep Eddy Vodka</div>
+      <ul class="profile-list">
+        <li>Austin, TX. Owned by Heaven Hill Brands (acquired ~2015 for ~$400M). Flagship fruit-flavored line at ~$17–22/750mL. National distribution. 77K Instagram followers.</li>
+        <li>Active TV commercial campaigns, digital advertising, and documented event field marketing with 14K+ social shares from activations.</li>
+        <li>Deep Eddy's flavors overlap thematically with Volada's (fruit, refreshment) but are not culturally positioned.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card navy">
+    <div class="card-label" style="color: var(--accent);">Competitive Verdict</div>
+    <div class="situation-item">
+      <div class="sit-heading" style="color: var(--white);">FALLING BEHIND</div>
+      <div class="sit-body" style="color: rgba(168,192,214,0.9);">Volada has a legitimate first-mover claim in a culturally resonant subcategory. But Deep Eddy has 77K Instagram followers vs. Volada's ~</span>
+    </div>
+  </div>
+
+  <div class="roi-stat-row mt-20">
+    <div class="roi-stat-box">
+      <div class="rs-num">1,582</div>
+      <div class="rs-lbl">Volada Instagram followers vs. Deep Eddy's 77,000</div>
+    </div>
+    <div class="roi-stat-box">
+      <div class="rs-num">0</div>
+      <div class="rs-lbl">Brand-owned TikTok, YouTube, or video content of any kind</div>
+    </div>
+    <div class="roi-stat-box">
+      <div class="rs-num">1</div>
+      <div class="rs-lbl">Third-party UGC TikTok generating more visibility than 179 brand posts</div>
+    </div>
+  </div>
+</section>
+
+<section id="marketing" class="section"></section>
+<section id="pitch" class="section"></section>
+</main>
+</body>
+</html>
